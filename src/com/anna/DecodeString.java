@@ -19,38 +19,37 @@ public class DecodeString {
 
     public static String decoder(String s) {
         String answer = "";
-    //    String[] a = s.split("/[/]");
-    //    System.out.println(Arrays.toString(a));
-//        int i = 0;
-//        while (i < s.length()){
         for (int i = 0; i < s.length(); i++){
             char ch = s.charAt(i);
-            if (ch > '0' && ch < '9') {
-                int j = Character.getNumericValue(ch);
-                System.out.println(j);
-              //  while ()
-                i+=2;
-                System.out.println(i);
-                int k = i;
-                while (j > 0) {
-                    char c = s.charAt(i);
-                    k = i;
-                    while (c != ']') {
-                        System.out.println(c);
-                        answer += c;
-                        k++;
-                        c = s.charAt(k);
-                    }
-                    System.out.println(answer);
-                    System.out.println("j" + j);
-                    j--;
-                }
-                    i = k;
+            if (ch > '0' && ch < '9') repeater(Character.getNumericValue(ch), s, i + 2, answer);
+            else {
+                answer += Character.toString(ch);
             }
-        //    i++;
+
         }
 
         return answer;
+    }
+
+    private static void repeater (int amount, String s, int start, String answer){
+        System.out.println("hello");
+        char ch = s.charAt(start);
+        System.out.println(ch + " " + start);
+
+        for (int i = 0; i < amount; i ++) {
+            int j = start;
+            System.out.println("j = start = " + j);
+
+            while(ch != ']') {
+                ch = s.charAt(j);
+                System.out.println(ch + "="+ j);
+                j++;
+                if (ch > '0' && ch < '9') repeater(Character.getNumericValue(ch), s, j + 1, answer);
+                else {
+                    answer += Character.toString(ch);
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
