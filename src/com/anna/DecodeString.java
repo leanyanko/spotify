@@ -17,37 +17,51 @@ import java.util.Arrays;
 
 public class DecodeString {
 
+    public static String ans;
+
     public static String decoder(String s) {
-        String answer = "";
+        ans = "";
         for (int i = 0; i < s.length(); i++){
             char ch = s.charAt(i);
-            if (ch > '0' && ch < '9') repeater(Character.getNumericValue(ch), s, i + 2, answer);
+            if (ch > '0' && ch < '9') repeater(Character.getNumericValue(ch), s, i + 2);
+            else if( ch == '[' || ch == ']') {}
+
             else {
-                answer += Character.toString(ch);
+                ans += Character.toString(ch);
+                System.out.println("ans " + ans);
             }
 
         }
-
-        return answer;
+   //     repeater(s.length(), s, 0);
+        return ans;
     }
 
-    private static void repeater (int amount, String s, int start, String answer){
-        System.out.println("hello");
+
+    private static void repeater (int amount, String s, int start){
         char ch = s.charAt(start);
-        System.out.println(ch + " " + start);
+        System.out.println("amount " + amount);
+        System.out.println(ch + " from " + start);
 
         for (int i = 0; i < amount; i ++) {
             int j = start;
             System.out.println("j = start = " + j);
 
             while(ch != ']') {
-                ch = s.charAt(j);
                 System.out.println(ch + "="+ j);
                 j++;
-                if (ch > '0' && ch < '9') repeater(Character.getNumericValue(ch), s, j + 1, answer);
-                else {
-                    answer += Character.toString(ch);
+
+                if (ch > '0' && ch < '9') {
+                    int numeric = Character.getNumericValue(ch);
+                    System.out.println("numeric " + numeric);
+
+                    repeater(numeric, s, j + 1);
                 }
+                else if(ch == '[') j++;
+                else {
+                    ans += Character.toString(ch);
+                    System.out.println("ans " + ans);
+                }
+                ch = s.charAt(j);
             }
         }
     }
